@@ -1,8 +1,8 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew updater with logs, retry handling, and scheduled runs"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  url "<REPLACED_BY_GITHUB_ACTION>"
-  sha256 "<REPLACED_BY_GITHUB_ACTION>"
+  url "https://github.com/lucalorenzon/brew-maintainer/archive/v0.1.2.tar.gz"
+  sha256 "99794ba12a16391781193f6ee18fe25f2c48fb3f7b1b2ff4b12143549c487a32"
   license "MIT"
 
   depends_on "rust" => :build
