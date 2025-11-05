@@ -1,9 +1,9 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew updater with logs, retry handling, and scheduled runs"
-  homepage "https://github.com/<REPLACED_BY_GITHUB_ACTION>"
-  version "<REPLACED_BY_GITHUB_ACTION>"
-  url "<REPLACED_BY_GITHUB_ACTION>"
-  sha256 "<REPLACED_BY_GITHUB_ACTION>"
+  homepage "https://github.com/lucalorenzon/brew-maintainer"
+  version "0.1.4"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.4/brew-maintainer-v0.1.4-x86_64-macos.tar.gz"
+  sha256 "656332c0e5158b8f1cbe3ed3b558b26643c8c577b1c9a47e8cd5d28229c44e68"
   license "MIT"
 
   def install
@@ -18,7 +18,7 @@ class BrewMaintainer < Formula
       <plist version="1.0">
       <dict>
         <key>Label</key>
-        <string>com.<REPLACED_BY_GITHUB_ACTION>.brew-maintainer</string>
+        <string>com.lucalorenzon.brew-maintainer</string>
 
         <key>ProgramArguments</key>
         <array>
