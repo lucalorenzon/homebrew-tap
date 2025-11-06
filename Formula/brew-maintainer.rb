@@ -1,48 +1,31 @@
 class BrewMaintainer < Formula
-  desc "Automated Homebrew updater with logs, retry handling, and scheduled runs"
+  desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  version "0.1.4"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.4/brew-maintainer-v0.1.4-x86_64-macos.tar.gz"
-  sha256 "656332c0e5158b8f1cbe3ed3b558b26643c8c577b1c9a47e8cd5d28229c44e68"
+  version "v0.1.22"
+  url "https://github.com/lucalorenzon/brew-maintainer/archive/v0.1.22.tar.gz"
+  sha256 "f289afedeb45252064a1c3bbdcbe78b567921df7eb457471853a17b151e7794a"
   license "MIT"
+
+  depends_on :macos # only macOS supported
 
   def install
     bin.install "brew-maintainer"
-    (var/"log").mkpath
   end
 
-  def plist
+  service do
+    run [opt_bin/"brew-maintainer"]
+    keep_alive true
+    log_path var/"log/brew-maintainer.log"
+    error_log_path var/"log/brew-maintainer.err.log"
+    working_dir var
+  end
+
+  def caveats
     <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-      <dict>
-        <key>Label</key>
-        <string>com.lucalorenzon.brew-maintainer</string>
-
-        <key>ProgramArguments</key>
-        <array>
-          <string>#{opt_bin}/brew-maintainer</string>
-        </array>
-
-        <!-- Run every 6 hours -->
-        <key>StartInterval</key>
-        <integer>21600</integer>
-
-        <key>RunAtLoad</key>
-        <true/>
-
-        <key>StandardOutPath</key>
-        <string>#{var}/log/brew-maintainer.log</string>
-
-        <key>StandardErrorPath</key>
-        <string>#{var}/log/brew-maintainer-error.log</string>
-      </dict>
-      </plist>
+      brew-maintainer will automatically run every 6 hours via macOS service.
+      Logs are stored under:
+        #{var}/log/brew-maintainer.log
+      If a run requires user input, it will be skipped and noted in the log.
     EOS
-  end
-
-  test do
-    system "#{bin}/brew-maintainer", "--help"
   end
 end
