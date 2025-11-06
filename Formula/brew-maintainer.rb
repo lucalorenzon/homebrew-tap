@@ -1,8 +1,8 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  version "v0.1.26"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.26/brew-maintainer"
+  version "v0.1.27"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.27/brew-maintainer"
   sha256 "5b63b458422e8f4b7bfc20ba7e691dd5359a5d1981e96c9e6a8d7a5337d70a61"
   license "MIT"
 
@@ -14,7 +14,9 @@ class BrewMaintainer < Formula
 
   service do
     run [opt_bin/"brew-maintainer"]
-    keep_alive true
+    run_at_load true
+    keep_alive false
+    interval 21600  # 6 hours = 21600 seconds
     log_path var/"log/brew-maintainer.log"
     error_log_path var/"log/brew-maintainer.err.log"
     working_dir var
