@@ -1,8 +1,8 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  version "v0.1.22"
-  url "https://github.com/lucalorenzon/brew-maintainer/archive/v0.1.22.tar.gz"
+  version "v0.1.23"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.23/brew-maintainer"
   sha256 "f289afedeb45252064a1c3bbdcbe78b567921df7eb457471853a17b151e7794a"
   license "MIT"
 
