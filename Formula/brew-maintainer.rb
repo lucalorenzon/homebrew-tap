@@ -1,9 +1,9 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  version "v0.1.27"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.27/brew-maintainer"
-  sha256 "5b63b458422e8f4b7bfc20ba7e691dd5359a5d1981e96c9e6a8d7a5337d70a61"
+  version "v0.1.28"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.28/brew-maintainer"
+  sha256 "d7306a163c1c55d876dc8b761f1c13481019b0390cce95407974a94e35702bc1"
   license "MIT"
 
   depends_on :macos # only macOS supported
@@ -23,12 +23,44 @@ class BrewMaintainer < Formula
     environment_variables PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
   end
 
+  def plist
+      <<~PLIST
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+          <dict>
+            <key>Label</key>
+            <string>#{plist_name}</string>
+            <key>ProgramArguments</key>
+            <array>
+              <string>#{opt_bin}/brew-maintainer</string>
+            </array>
+            <key>StartInterval</key>
+            <integer>21600</integer>
+            <key>RunAtLoad</key>
+            <true/>
+            <key>WorkingDirectory</key>
+            <string>#{var}</string>
+            <key>StandardOutPath</key>
+            <string>#{var}/log/brew-maintainer.log</string>
+            <key>StandardErrorPath</key>
+            <string>#{var}/log/brew-maintainer.err.log</string>
+            <key>EnvironmentVariables</key>
+            <dict>
+              <key>PATH</key>
+              <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+            </dict>
+          </dict>
+        </plist>
+        PLIST
+    end
+
   def caveats
-    <<~EOS
+    <<~DESC
       brew-maintainer will automatically run every 6 hours via macOS service.
       Logs are stored under:
         #{var}/log/brew-maintainer.log
       If a run requires user input, it will be skipped and noted in the log.
-    EOS
+    DESC
   end
 end
