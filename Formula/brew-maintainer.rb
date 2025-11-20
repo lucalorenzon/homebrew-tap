@@ -1,9 +1,9 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  version "v0.1.30"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.30/brew-maintainer"
-  sha256 "5b63b458422e8f4b7bfc20ba7e691dd5359a5d1981e96c9e6a8d7a5337d70a61"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.31/brew-maintainer"
+  version "0.1.31"
+  sha256 "5f9456545f48027881a8b970a1815063b6d28f06d513b2ccd40f9156e56a39fc"
   license "MIT"
 
   depends_on :macos # only macOS supported
@@ -14,47 +14,16 @@ class BrewMaintainer < Formula
 
   service do
     run [opt_bin/"brew-maintainer"]
-    run_at_load true
     run_type :interval
-    keep_alive false
     interval 21600  # 6 hours = 21600 seconds
     log_path var/"log/brew-maintainer.log"
     error_log_path var/"log/brew-maintainer.err.log"
     working_dir var
-    environment_variables PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+    environment_variables(
+      HOME => ENV[“HOME"],
+      PATH => std_service_path_env
+    )
   end
-
-  def plist
-      <<~PLIST
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-          <dict>
-            <key>Label</key>
-            <string>#{plist_name}</string>
-            <key>ProgramArguments</key>
-            <array>
-              <string>#{opt_bin}/brew-maintainer</string>
-            </array>
-            <key>StartInterval</key>
-            <integer>21600</integer>
-            <key>RunAtLoad</key>
-            <true/>
-            <key>WorkingDirectory</key>
-            <string>#{var}</string>
-            <key>StandardOutPath</key>
-            <string>#{var}/log/brew-maintainer.log</string>
-            <key>StandardErrorPath</key>
-            <string>#{var}/log/brew-maintainer.err.log</string>
-            <key>EnvironmentVariables</key>
-            <dict>
-              <key>PATH</key>
-              <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
-            </dict>
-          </dict>
-        </plist>
-        PLIST
-    end
 
   def caveats
     <<~DESC
