@@ -1,9 +1,9 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.36/brew-maintainer"
-  version "0.1.36"
-  sha256 "ec42941b76013c181698bd17d8bf3688b50146887cf09e746f9921f1643af832"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.37/brew-maintainer"
+  version "0.1.37"
+  sha256 "be812e0e6af6e9407d5e014d3da1e8dfa0ff54e950a5fb1318c518fe75bae650"
   license "MIT"
 
   depends_on :macos # only macOS supported
