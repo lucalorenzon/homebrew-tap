@@ -1,8 +1,8 @@
 class BrewMaintainer < Formula
   desc "Automated Homebrew maintenance tool (update, upgrade, cleanup with logs)"
   homepage "https://github.com/lucalorenzon/brew-maintainer"
-  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.33/brew-maintainer"
-  version "0.1.33"
+  url "https://github.com/lucalorenzon/brew-maintainer/releases/download/v0.1.34/brew-maintainer"
+  version "0.1.34"
   sha256 "3077a88d4d8f54a197457654c484aecce4d2fa15864f22cdf59b1de7e7afcc0b"
   license "MIT"
 
@@ -20,8 +20,8 @@ class BrewMaintainer < Formula
     error_log_path var/"log/brew-maintainer.err.log"
     working_dir var
     environment_variables(
-      HOME => Dir.home,
-      PATH => std_service_path_env
+      "HOME" => ENV.fetch("HOME"),
+      "PATH" => std_service_path_env
     )
   end
 
